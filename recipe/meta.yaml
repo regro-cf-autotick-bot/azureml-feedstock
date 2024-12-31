@@ -6,22 +6,22 @@ package:
   version: {{ version }}
 
 source:
-  url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/azureml-{{ version }}.zip
+  url: https://pypi.org/packages/source/{{ name[0] }}/{{ name }}/azureml-{{ version }}.zip
   sha256: 1b48afa1306d1f32133748585a3e5a6793557780105f4e51c2a978070dd432f1
 
 build:
   noarch: python
   script: {{ PYTHON }} -m pip install . -vv --no-deps --no-build-isolation
-  number: 0
+  number: 1
 
 requirements:
   host:
-    - python >=3.6
+    - python {{ python_min }}
     - pip
     - setuptools >=61.0
     - setuptools-scm
   run:
-    - python >=3.6
+    - python >={{ python_min }}
     - requests
     - pandas
     - python-dateutil
@@ -33,6 +33,7 @@ test:
     - pip check
   requires:
     - pip
+    - python {{ python_min }}
 
 about:
   home: https://github.com/Azure/Azure-MachineLearning-ClientLibrary-Python
